@@ -29,6 +29,16 @@ namespace StickyTasks.ViewModel
             view = mainWindow;
             repository = toDoItemRepository;
             Items = new ObservableCollection<ToDoItem>();
+            this.LoadNote();
+        }
+
+        public void LoadNote()
+        {
+            Items.Clear();
+            foreach (ToDoItem item in repository.LoadToDoItems())
+            {
+                Items.Add(item);
+            }
         }
         
         public void AddNote()
@@ -36,7 +46,9 @@ namespace StickyTasks.ViewModel
             AddEditNoteWindow inputWindow = new AddEditNoteWindow();
             if (inputWindow.ShowDialog() == true)
             {
-                Items.Add(inputWindow.Result);
+                repository.AddToDoItem(inputWindow.Result);
+                this.LoadNote();
+                //Items.Add(inputWindow.Result);
             }
         }
 
@@ -45,8 +57,10 @@ namespace StickyTasks.ViewModel
             AddEditNoteWindow inputWindow = new AddEditNoteWindow(toDoItem);
             if (inputWindow.ShowDialog() == true)
             {
-                toDoItem.DueDate = inputWindow.Result.DueDate;
-                toDoItem.Content = inputWindow.Result.Content;                
+                repository.UpdateToDoItem(inputWindow.Result);
+                this.LoadNote();
+                //toDoItem.DueDate = inputWindow.Result.DueDate;
+                //toDoItem.Content = inputWindow.Result.Content;                
             }
         }
 
@@ -55,7 +69,9 @@ namespace StickyTasks.ViewModel
             if(MessageBox.Show("Are you sure to delete the item?", "Alert", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
                 == MessageBoxResult.OK)
             {
-                Items.Remove(toDoItem);
+                repository.DeleteToDoItem(toDoItem);
+                this.LoadNote();
+                //Items.Remove(toDoItem);
             }
         }
 

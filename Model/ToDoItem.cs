@@ -9,6 +9,9 @@ namespace StickyTasks.Model
 {
     public class ToDoItem : INotifyPropertyChanged
     {
+        private string _Key;
+        public string Key { get { return _Key; } set { _Key = value; } }
+
         private string _Content;
         private string _DueDate;
         public string Content

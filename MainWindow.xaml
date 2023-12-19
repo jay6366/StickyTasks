@@ -53,7 +53,7 @@
                 <DataTemplate>
                     <Border Style="{StaticResource StickyNoteStyle}">
                         <StackPanel>
-                            <TextBlock x:Name="txtDueDate" Text="{Binding Title}" FontWeight="Bold"/>
+                            <TextBlock x:Name="txtDueDate" Text="{Binding DueDate}" FontWeight="Bold"/>
                             <TextBlock x:Name="txtContent" Text="{Binding Content}" TextWrapping="Wrap"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Button x:Name="btnEdit" Content="Edit" Margin="5" Click="EditButton_Click"/>
