@@ -4,21 +4,51 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StickyTasks.View"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="AddEditNoteWindow" Height="450" Width="800">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        Title="AddEditNoteWindow" 
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
 
-        <TextBox x:Name="TitleTextBox" Grid.Row="0" Margin="5"/>
-        <TextBox x:Name="ContentTextBox" Grid.Row="1" Margin="5" TextWrapping="Wrap" AcceptsReturn="True"/>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="5" Content="Save" Click="SaveButton_Click"/>
-            <Button Margin="5" Content="Cancel" Click="CancelButton_Click"/>
-        </StackPanel>
-    </Grid>
+    <Border Background="#cd5278" CornerRadius="10" HorizontalAlignment="Center" Width="355" Margin="0 30 0 20" Padding="17 15 5 15">
+        <Grid HorizontalAlignment="Right" Width="333">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Pencil" Margin="10" Width="15" Height="15" Foreground="#eba5bb"/>
+                        <TextBlock Text="메모를 입력하세요." Style="{StaticResource textHint}" Name="lblNote"/>
+                        <TextBox x:Name="ContentTextBox" Style="{StaticResource textBox}" Grid.Row="1" Margin="5" TextWrapping="Wrap" AcceptsReturn="True"/>
+                    </StackPanel>
+                    <Button  Grid.Column="1"  Style="{StaticResource button}" Click="SaveButton_Click">
+                        <fa:ImageAwesome Icon="PlusCircle" Margin="75 0 0 0"  Width="28" Height="28" Foreground="#f9f9f9"/>
+                    </Button>
+                </Grid>
+                <Separator Margin="0 12 0 11" Height="0.8" Background="#c14269"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Bell" Margin="10" Width="15" Height="15" Foreground="#eba5bb"/>
+                        <TextBlock Text="기한을 입력하세요." Style="{StaticResource textHint}" Name="lblNote2"/>
+                        <TextBox x:Name="TitleTextBox" Style="{StaticResource textBox}" Grid.Row="0" Margin="5"/>
+                    </StackPanel>
+                    <Button  Grid.Column="1" Style="{StaticResource button}" Click="CancelButton_Click">
+                        <fa:ImageAwesome Icon="MinusCircle" Margin="75 0 0 0"  Width="28" Height="28" Foreground="#f9f9f9"/>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
