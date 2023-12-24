@@ -6,13 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace StickyTasks.ViewModel
 {
     /*데이터베이스 연결 및 CRUD 작업을 관리하는 클래스*/
     public class ToDoItemRepository
     {
-        private string connectionString = "Data Source=C:\\users\\junhy\\source\\StickyTasks\\test.db;Version=3;";
+        private string connectionString = ConfigurationManager.ConnectionStrings["DefaultDBConnection"].ConnectionString;
 
         public ToDoItemRepository()
         {
