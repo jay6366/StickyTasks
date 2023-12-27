@@ -4,11 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 
 namespace StickyTasks.ViewModel
 {
@@ -19,7 +21,11 @@ namespace StickyTasks.ViewModel
         private MainWindow view;
         private ToDoItemRepository repository;
 
+        private NotifyIcon notifyIcon;
+
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        
 
         public MainViewModel(
             MainWindow mainWindow,
@@ -30,6 +36,44 @@ namespace StickyTasks.ViewModel
             repository = toDoItemRepository;
             Items = new ObservableCollection<ToDoItem>();
             this.LoadNote();
+
+            // NotifyIcon 초기화
+            notifyIcon = new NotifyIcon
+            {
+                Icon = SystemIcons.Information, // 예시로 시스템 아이콘을 사용
+                Visible = true
+            };
+        }
+
+        public void CheckAndNotifyDueTasks()
+        {
+            var items = repository.LoadToDoItems();
+            foreach (var item in items)
+            {
+                if (IsTaskDue(item.DueDate))
+                {
+                    ShowNotification(item.Content +"\n"+"Due Date: "+ item.DueDate);
+                }
+            }
+        }
+
+        private bool IsTaskDue(string dueDateStr)
+        {
+            DateTime.TryParse(dueDateStr, out var dueDate);
+            return DateTime.Now <= dueDate;
+        }
+
+        private void ShowNotification(string content)
+        {
+            // NotifyIcon을 사용하여 풍선 도움말 알림을 표시합니다.
+            notifyIcon.BalloonTipTitle = "기한 알림";
+            notifyIcon.BalloonTipText = content;
+            notifyIcon.ShowBalloonTip(3000); // 3초 동안 표시
+        }
+
+        public void Dispose()
+        {
+            notifyIcon.Dispose();
         }
 
         public void LoadNote()
@@ -48,7 +92,6 @@ namespace StickyTasks.ViewModel
             {
                 repository.AddToDoItem(inputWindow.Result);
                 this.LoadNote();
-                //Items.Add(inputWindow.Result);
             }
         }
 
@@ -59,19 +102,16 @@ namespace StickyTasks.ViewModel
             {
                 repository.UpdateToDoItem(inputWindow.Result);
                 this.LoadNote();
-                //toDoItem.DueDate = inputWindow.Result.DueDate;
-                //toDoItem.Content = inputWindow.Result.Content;                
             }
         }
 
         public void DeleteNote(ToDoItem toDoItem)
         {
-            if(MessageBox.Show("Are you sure to delete the item?", "Alert", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
+            if(System.Windows.MessageBox.Show("Are you sure to delete the item?", "Alert", MessageBoxButton.OKCancel, MessageBoxImage.Warning) 
                 == MessageBoxResult.OK)
             {
                 repository.DeleteToDoItem(toDoItem);
                 this.LoadNote();
-                //Items.Remove(toDoItem);
             }
         }
 

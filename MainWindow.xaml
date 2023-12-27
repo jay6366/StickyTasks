@@ -11,14 +11,14 @@
     <Window.Resources>
         <!-- Styling for the sticky notes -->
         <Style x:Key="StickyNoteStyle" TargetType="Border">
-            <Setter Property="Background" Value="#87CEEB"/>
+            <Setter Property="Background" Value="LightYellow"/>
             <Setter Property="Padding" Value="10"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Margin" Value="10 5"/>
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect BlurRadius="15" ShadowDepth="5" Opacity="0.5"/>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.3"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -57,8 +57,8 @@
                             <TextBlock x:Name="txtDueDate" Text="{Binding DueDate}" FontWeight="Bold"/>
                             <TextBlock x:Name="txtContent" Text="{Binding Content}" TextWrapping="Wrap"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button x:Name="btnEdit" Content="Edit" Margin="5" Click="EditButton_Click"/>
-                                <Button Content="Delete" Margin="5" Click="DeleteButton_Click"/>
+                                <Button x:Name="btnEdit" Content="✎" Margin="5" Click="EditButton_Click"/>
+                                <Button Content="✖" Margin="5" Click="DeleteButton_Click"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

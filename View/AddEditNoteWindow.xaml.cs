@@ -28,18 +28,64 @@ namespace StickyTasks.View
             InitializeComponent();
             if (toDoItem != null)
             {
-                TitleTextBox.Text = toDoItem.DueDate.ToString();
-                ContentTextBox.Text = toDoItem.Content;
+                Result = toDoItem;
+                txtContent.Text = toDoItem.Content;
+                txtDueDate.SelectedDate = DateTime.TryParse(toDoItem.DueDate, out DateTime parsedDate) ? parsedDate : (DateTime?)null;
             }
+        }
+
+        private void txtContent_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtContent.Text) && txtContent.Text.Length > 0)
+            {
+                tbContent.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tbContent.Visibility = Visibility.Visible;
+            }
+
+        }
+
+        //private void txtDueDate_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (!string.IsNullOrEmpty(txtDueDate.Text)&&txtDueDate.Text.Length>0) 
+        //    {
+        //        tbDueDate.Visibility = Visibility.Collapsed;
+        //    }
+        //    else
+        //    {
+        //        tbDueDate.Visibility =Visibility.Visible;
+        //    }
+            
+        //}
+
+        private void tbContent_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtContent.Focus();
+        }
+
+        private void tbDueDate_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtDueDate.Focus();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Result = new ToDoItem
+            if(Result == null)
             {
-                DueDate = TitleTextBox.Text,   
-                Content = ContentTextBox.Text
-            };
+                Result = new ToDoItem
+                {
+                    Content = txtContent.Text,
+                    DueDate = txtDueDate.SelectedDate?.ToString("yyyy-MM-dd") ?? string.Empty
+                };
+            }
+            else
+            {
+                Result.Content = txtContent.Text;
+                Result.DueDate = txtDueDate.SelectedDate?.ToString("yyyy-MM-dd") ?? string.Empty;
+            }
+
             DialogResult = true;
         }
 

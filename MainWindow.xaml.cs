@@ -1,19 +1,9 @@
 ﻿using StickyTasks.Model;
 using StickyTasks.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace StickyTasks
 {
@@ -22,14 +12,21 @@ namespace StickyTasks
     /// </summary>
     public partial class MainWindow : Window
     {
+        private System.Threading.Timer checkTimer;
         public MainViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
-
             viewModel = new MainViewModel(this, new ToDoItemRepository());
             this.DataContext = viewModel;
+            checkTimer = new System.Threading.Timer(CheckDueTasks, null, 0, 60000); // 1분마다 체크
         }
+
+        private void CheckDueTasks(object state)
+        {
+            viewModel.CheckAndNotifyDueTasks();
+        }
+
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {

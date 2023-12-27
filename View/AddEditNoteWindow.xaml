@@ -11,41 +11,38 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
+        Background="LightYellow">
 
-    <Border Background="#cd5278" CornerRadius="10" HorizontalAlignment="Center" Width="355" Margin="0 30 0 20" Padding="17 15 5 15">
+    <Border Background="LightYellow" CornerRadius="10" HorizontalAlignment="Center" Width="355" Margin="0 30 0 20" Padding="17 15 5 15">
         <Grid HorizontalAlignment="Right" Width="333">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Pencil" Margin="10" Width="15" Height="15" Foreground="#eba5bb"/>
-                        <TextBlock Text="메모를 입력하세요." Style="{StaticResource textHint}" Name="lblNote"/>
-                        <TextBox x:Name="ContentTextBox" Style="{StaticResource textBox}" Grid.Row="1" Margin="5" TextWrapping="Wrap" AcceptsReturn="True"/>
-                    </StackPanel>
-                    <Button  Grid.Column="1"  Style="{StaticResource button}" Click="SaveButton_Click">
-                        <fa:ImageAwesome Icon="PlusCircle" Margin="75 0 0 0"  Width="28" Height="28" Foreground="#f9f9f9"/>
+                    <fa:ImageAwesome Icon="Pencil" Grid.Column="0" Margin="10" Width="15" Height="15" Foreground="#000000"/>
+                    <TextBlock x:Name="tbContent" Text="Add Content" Style="{StaticResource textHint}" Grid.Row="0" Margin="5" MouseDown="tbContent_MouseDown"/>
+                    <TextBox x:Name="txtContent" Style="{StaticResource textBox}" Grid.Row="0" Margin="5" TextChanged="txtContent_TextChanged"/>
+                    <Button  Grid.Column="2"  Style="{StaticResource button}" Click="SaveButton_Click">
+                        <fa:ImageAwesome Icon="PlusCircle" Margin="75 0 0 0"  Width="28" Height="28" Foreground="#000000"/>
                     </Button>
                 </Grid>
-                <Separator Margin="0 12 0 11" Height="0.8" Background="#c14269"/>
+                <Separator Margin="0 12 0 11" Height="0.8" Background="#000000"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Bell" Margin="10" Width="15" Height="15" Foreground="#eba5bb"/>
-                        <TextBlock Text="기한을 입력하세요." Style="{StaticResource textHint}" Name="lblNote2"/>
-                        <TextBox x:Name="TitleTextBox" Style="{StaticResource textBox}" Grid.Row="0" Margin="5"/>
-                    </StackPanel>
-                    <Button  Grid.Column="1" Style="{StaticResource button}" Click="CancelButton_Click">
-                        <fa:ImageAwesome Icon="MinusCircle" Margin="75 0 0 0"  Width="28" Height="28" Foreground="#f9f9f9"/>
+                    <fa:ImageAwesome Icon="Bell" Grid.Column="0" Margin="10" Width="15" Height="15" Foreground="#000000"/>
+                    <DatePicker x:Name="txtDueDate" Grid.Column="1" Margin="5" />
+                    <Button  Grid.Column="2" Style="{StaticResource button}" Click="CancelButton_Click">
+                        <fa:ImageAwesome Icon="Close"  Margin="75 0 0 0"  Width="23" Height="28" Foreground="#000000"/>
                     </Button>
                 </Grid>
             </StackPanel>
