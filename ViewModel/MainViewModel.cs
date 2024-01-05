@@ -48,12 +48,17 @@ namespace StickyTasks.ViewModel
         public void CheckAndNotifyDueTasks()
         {
             var items = repository.LoadToDoItems();
+            var dueTasks = new StringBuilder();
             foreach (var item in items)
             {
                 if (IsTaskDue(item.DueDate))
                 {
-                    ShowNotification(item.Content +"\n"+"Due Date: "+ item.DueDate);
+                    dueTasks.AppendLine($"{item.Content} - Due Date: {item.DueDate}");
                 }
+            }
+            if (dueTasks.Length > 0) 
+            {
+                ShowNotification(dueTasks.ToString());
             }
         }
 
